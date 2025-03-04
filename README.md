@@ -41,17 +41,17 @@ We looked for existing python bindings for the jira and zammad API, extended the
 (yes, we do not just consume open source here @ [RLS IT](https://github.com/Rosa-Luxemburgstiftung-Berlin), we try to live it),
 and started a small project.
 
-Fist of all: we tested on a cloned instance of our existing zammad setup!
+First of all: we tested on a cloned instance of our existing zammad setup!
 
 Step by step we migrated single issues, fixing more and more fields and settings.
 If the result was not satisfactory, we removed the ticket and started all over again ...
 ```
 zammad run rails r 'Ticket.find(ZAMMAD_TICKET_ID).destroy'
 ```
-And finally we hat a working setup, moving about 44 thousand issues and more then 1500 user objects from jira to zammad,
+And finally we had a working setup, moving about **44 thousand issues** and more then **1500 user objects** from jira to zammad,
 preserving timestamps, attachments, components and labels as tags, ...
 
-The run including re-indexing took about 70 hours, but as it is a one time task, this was OK for us.
+The run including re-indexing took about **70 hours**, but as it is a one time task, this was OK for us.
 
 And here we publish the script, with the restrictions already mentioned ...
 
