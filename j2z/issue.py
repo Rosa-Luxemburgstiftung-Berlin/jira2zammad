@@ -53,25 +53,6 @@ def get_jira_issue_identifier(issue, identifier):
         return issue.key
     return issue.fields.get(identifier)
 
-# state_id:
-#    2: open
-#    3: pending reminder
-#    4: closed
-#    7: pending close
-#    8: warten auf Klärung
-# zam01
-#    11: abgelehnt
-#    10: bug/known issue
-#    13: doppelt
-#    4: geschlossen
-#    8: in Bearbeitung
-#    2: offen
-#    12: offen nach Rückfrage
-#    3: warten auf Erinnerung
-#    9: warten auf Klärung
-#    7: warten auf Schließen
-#    14: Wiedervorlage
-# jira: https://jira2.ber0.rosalux.org:8443/secure/admin/ViewStatuses.jspa
 def jira2zammad_transform_value(jiravalue, jirafield):
     """jira value 2 zammad value"""
     if mapping.get('mapping2lower', True):

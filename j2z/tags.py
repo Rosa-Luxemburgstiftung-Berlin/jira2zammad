@@ -15,18 +15,6 @@ jira = None
 zammad = None
 mapping = None
 
-# componentes:
-# 'components':
-#  [{'id': '13300',
-#    'name': 'Anfrage',
-#    'self': 'https://jira2.ber0.rosalux.org:8443/rest/api/2/component/13300'},
-#   {'id': '13302',
-#    'name': 'Umzug',
-#    'self': 'https://jira2.ber0.rosalux.org:8443/rest/api/2/component/13302'}],
-#
-# labels:
-# 'labels': ['ap_umzug'],
-
 def jira2zammad(zammad_id, jiraissue):
     """map labels and componentes form a jira issue to zammad tags"""
     tags = mapping.get('tags', {}).get('default', []).copy()
