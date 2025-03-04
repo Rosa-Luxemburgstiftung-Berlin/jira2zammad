@@ -81,9 +81,9 @@ def jira2zammad_transform(zammadfieldname, jirafieldname, value):
     #    value = ', '.join(value)
 
     # cascading select list
-    if jirafieldname in ['customfield_10200', 'customfield_10102']:
-        # value.value - holds just the firts entry for nested objects!
-        value = f'{value}'
+    # value.value - holds just the firts entry for nested objects!
+    #if jirafieldname in ['customfield_10200', 'customfield_10102']:
+    #    value = f'{value}'
 
     # example for a custom field cascading select list
     # jira uses ' - ' as a delimiter, and zammad '::'

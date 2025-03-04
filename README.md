@@ -59,6 +59,19 @@ If it is of use for you: just take it and use it (under the terms of the [AGPL-3
 
 Good luck!
 
+## features
+
+Migrate:
+
+  * issue / ticket
+  * user
+  * preserve timestamps of issues / tickets / comments etc.
+  * preserve users for author/assignee/comments/attachments ...
+  * attachments (as files or inline)
+  * jira components and labels to tags
+  * configurable field mapping
+  * ...
+
 ## install
 
 ```
