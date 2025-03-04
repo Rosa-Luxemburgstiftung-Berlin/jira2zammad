@@ -1,0 +1,7 @@
+# pip packages for jira 2 zammad migration
+# pip install -r jira2zammad-requirements.txt
+jira
+zammad_py
+hiyapyco
+pylint
+packaging

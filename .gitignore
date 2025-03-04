@@ -1,0 +1,3 @@
+jira2zammad-secrets.yml
+*.swp
+__pycache__

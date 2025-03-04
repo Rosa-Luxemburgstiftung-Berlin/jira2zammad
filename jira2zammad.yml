@@ -1,0 +1,144 @@
+---
+#---------#
+# secrets #
+#---------#
+# jira:
+#   baseurl:
+#   authuser:
+#   authpass:
+# zammad:
+#   baseurl:
+#   authtoken:
+#   authuser:
+#   authpass:
+
+# general config
+jira:
+  options:  # options for server connect
+    verify: False  # do not verify ssl
+  project: JIRAPROJECT  # src project
+zammad:
+  verify: False  # do not verify ssl
+
+# jira 2 zammad mappings
+mapping:
+  mapping2lower: true
+  tags:
+    default: # default tags we apply to all migrated issues - will be used as a filter too
+      - jira2zammad
+  user:  # reporter, assignee, ...
+    # list of roles to assign to agents
+    agent_role_keys: i{3] # example: [3, 4]
+    key:  # mapping of users jira.emailAddress  <-> zammad.email
+      jira: emailAddress
+      zammad: email
+    constants:  # constant fields to apply to new users
+      active: true  # will be re-set to active: false after migration
+      send_customer_notification: false
+  issue:
+    key:  # mapping of issues between jira and zammad
+      jira: key # default: id # only key and id will work for linking
+      zammad: jira_number # default: number
+    fields:  # mapping of issue fields between jira and zammad
+      issuetype: jira_type # default: type
+      assignee: owner_id  # user
+      reporter: customer_id  # user
+      summary: title
+      description: article.body
+      status: state_id
+      # priority:
+      # resolution: 
+      # duedate:
+      # see j2z/issue.py jira2zammad_transform
+      # customfield_10200: os
+    constants:  # constants for new zammad issues
+      group_id: 2
+      type: problem
+      organization_id: 11
+      article.content_type: "text/html"
+  comment:  # we do not check if the comment is already there, no key mapping possible
+    constants:
+      type_id: 10
+      content_type: "text/html"
+  attachment:
+  # attachment matches and replace regex will be formated, so you can use
+  # '{jirabaseurl}'   = config['jira']['baseurl']
+  # '{jiraissue}'     = issue key
+  # '{filename}'      = attachment filename
+  # '{filename}'      = attachment filename
+  # '{filenameurl}'   = attachment filename url encoded
+  # '{filenameunq}'   = attachment filename url decoded - attachment filenames are encoded for example if they contain spaces!
+  # '{attachmenturl}' = attachment url (content field)
+  # '{attachmentid}'  = attachment id
+  # formated strings will be escaped using re.escape (except noted above)
+  # ... escaping the rest is up to you ...
+  # matchlink: stupid jira uses different links! attachmenturl and the link in the comment differ!
+    matchlink:  # will be replaced and the matching attachement will be attached to the coresponding commment/article
+      - '<a href="{attachmenturl}" title="{filename} attached to {jiraissue}">{filename}.*</a>'
+      - '<a href="{jirabaseurl}secure/attachment/{attachmentid}/{attachmentid}_{filenameurl}" title="{filename} attached to {jiraissue}">{filename}.*</a>'
+      - '<a href="{jirabaseurl}secure/attachment/{attachmentid}/{attachmentid}_{filename}" title="{filenameunq} attached to {jiraissue}">{filenameunq}.*</a>'
+    matchinline:  # will be transformed to a inline image
+      - '\!{filename}\|thumbnail\!'
+      - '\!{filenameunq}\|thumbnail\!'
+    replace:  # will be just replaced if there was a match (link|inline)
+      'Attachments \(images\):': ''
+  status:
+    default: 2
+    values:  # value mapping for status : jira status word => zammad status id
+      open: 2
+      offen: 2
+      reopened: 2
+      resolved: 4
+      fertig: 4
+      abgeschlossen: 4
+      done: 4
+      closed: 4
+      abgebrochen: 4
+      geschlossen: 4
+      gelöst: 4
+      abgelehnt: 11
+      "in bearbeitung": 8
+      "in progress": 8
+      "wird bearbeitet": 8
+      "in zulauf": 8
+  #customfield_10200:  # example for a custom field mapping (nested select)
+  #  default: ''
+  #  values:
+  #    "windows - 7": "Windows"
+  #    "windows - 8": "Windows"
+  #    "windows - 10": "Windows::Windows 10"
+  #    "windows - 11": "Windows::Windows 11"
+  #    "linux - debian buster 10": "Linux::Debian 10 (Buster)"
+  #    "linux - debian bullseye 11": "Linux::Debian 11 (Bullseye)"
+  #    "linux - debian bookworm 12": "Linux::Debian 12 (Bookworm)"
+  #    "linux - debian stretch 9": "Linux"
+  #    "linux - debian jessie 8": "Linux"
+  #    "linux - debian wheezy 7": "Linux"
+  #    "linux - debian squeeze 6": "Linux"
+  #    "linux - debian raspian 8": "Linux"
+
+# issue links cfg
+issuelinks:
+  # if True, all link types that have no mapping, will be set to normal
+  # if False, unmatched link types wll be ignored
+  match_all_unmapped_to_normal: True
+  directions:
+    # in most cases just considering one direction should be sufficient
+    # but in order to be sure we do not miss a link, we can consider both
+    - inwardIssue
+    - outwardIssue
+  mapping:
+    # zammad link type => list of jira issue link types
+    # for now, zammad just has the folowing link types: normal, parent, child
+    # the jira api call GET /rest/api/2/issueLinkType will list you all types
+    normal: [] # if match_all_unmapped_to_normal is True, there is no need to configure this
+    parent:
+      - is parent task of
+      - has to be done after
+      - is blocked by
+      - causes
+    child:
+      - is subtask of
+      - has to be done before
+      - blocks
+      - is caused by
