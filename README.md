@@ -154,7 +154,7 @@ zammad:
 
 ```
 
-!note:
+**note**:
 
   * the zammad admin user needs agent rights in order to create issues
   * the jira user must have at least full read access to the project in question
@@ -189,7 +189,7 @@ disable all mail channels etc. ...
 
 **perform import**
 
-( :exclamation: we recommend to run the import against a clone of your productive instance first ; use at your own risk :exclamation:)
+:exclamation: we recommend to run the import against a clone of your productive instance first ; use at your own risk :exclamation:
 
 run:
 ```
