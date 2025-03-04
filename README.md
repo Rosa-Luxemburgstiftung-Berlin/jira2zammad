@@ -3,15 +3,17 @@ python script for Jira -> Zammad migration using the API
 
 ## about
 
-This is not a ready-to-use software!
+**This is not a ready-to-use software!**
 
-This was not written with code beauty in mind.
-This is no elegant and no efficient code.
-This was just written straight forward: one shot, kick'n'rush, disposable software.
+**This was not written with code beauty in mind.**
 
-We do not offer any support, only an opportunity that you can take yourself.
+**This is no elegant and no efficient code.**
 
-No warranty!
+**This was just written straight forward: one shot, kick'n'rush, disposable software.**
+
+**We do not offer any support, only an opportunity that you can take yourself.**
+
+:exclamation: **No warranty!** :exclamation:
 
 ## TL;DR
 
@@ -26,13 +28,16 @@ In our old Jira server instance, we had several projects, the biggest one with r
 As these might contain valuable information, we decided do preserve this for the future, and migrate them into our new zammad instance.
 
 While looking for a option, it seemed the official way to do this, was this: https://zammad.com/en/product/features/skyvia ...
+
 Well, we opt in, and rented one of the required components each from skyvia and zammad.
+
 But the path to the migration was far from being straight forward ... awkward to configure, hard to debug etc.
+
 But we persisted, until we realized more and more obstacles.
 
 And so we decided to do our own thing!
 
-We looked for existing python bindings for the jira and zammad API, extended them, cretaed some PR
+We looked for existing python bindings for the jira and zammad API, extended them, created some PR
 (yes, we do not just consume open source here @ [RLS IT](https://github.com/Rosa-Luxemburgstiftung-Berlin), we try to live it),
 and started a small project.
 
@@ -45,6 +50,8 @@ zammad run rails r 'Ticket.find(ZAMMAD_TICKET_ID).destroy'
 ```
 And finally we hat a working setup, moving about 44 thousand issues and more then 1500 user objects from jira to zammad,
 preserving timestamps, attachments, components and labels as tags, ...
+
+The run including re-indexing took about 70 hours, but as it is a one time task, this was OK for us.
 
 And here we publish the script, with the restrictions already mentioned ...
 
@@ -162,6 +169,7 @@ There are some examples how to handle label like fields and cascading select lis
 
 ### run import
 
+#### prepare zammad instance
 ```
 # zammad needs to be in import mode in order to allow setting dates in the past
 zammad run rails r 'Setting.set("import_mode", true)'
@@ -173,31 +181,36 @@ true
 zammad run rails r 'Setting.set("ldap_integration", false)'
 zammad run rails r 'p Setting.get("ldap_integration")'
 false
+```
 
+disable all mail channels etc. ...
 
-# perform import
+#### run
 
-( :exclamation: we recomend to run the import against a clone of your productive instance first ; use at your own risk :exclamation:)
+**perform import**
 
-## run
+( :exclamation: we recommend to run the import against a clone of your productive instance first ; use at your own risk :exclamation:)
 
+run:
 ```
 ./jira2zammad.py -c jira2zammad.yml -c jira2zammad-secrets.yml -l INFO 2>&1 | tee /var/tmp/jira2zammad.log
 ```
-or if you prefere less output
+or if you prefer less output:
 ```
 ./jira2zammad.py -c jira2zammad.yml -c jira2zammad-secrets.yml 2>&1 | tee /var/tmp/jira2zammad.log
 ```
 
+... this can last a long time!
 
-# ... this can last a long time!
+... inspect the log file /var/tmp/jira2zammad.log
 
-# inspect the log file /var/tmp/jira2zammad.log
+#### post import tasks
 
+```
 # make changes visible
 zammad run rails r 'Setting.set("import_mode", false)'
 
-# rebuild index afer import
+# rebuild index after import
 zammad run rake zammad:searchindex:rebuild[worker]
 
 # enable ldap integration (if applicable)
@@ -205,6 +218,10 @@ zammad run rails r 'Setting.set("ldap_integration", true)'
 zammad run rails r 'p Setting.get("ldap_integration")'
 true
 ```
+
+enable mail channels etc. ...
+
+**all done - enjoy!**
 
 ## links
 
