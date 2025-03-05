@@ -111,8 +111,8 @@ git submodule add https://github.com/joeirimpan/zammad_py.git
 
 # jira
 git submodule add https://github.com/pycontribs/jira.git
-# or w/ some PR
-git submodule add git@github.com:Rosa-Luxemburgstiftung-Berlin/jira.git
+# or w/ some not yet merged PR
+git submodule add --branch CommentProperty https://github.com/Rosa-Luxemburgstiftung-Berlin/jira.git
 ```
 
 **Note**: other versions of *zammad-py* or *jira* that have been installed via pip or the local package management must be removed in order to use the local submodules.
