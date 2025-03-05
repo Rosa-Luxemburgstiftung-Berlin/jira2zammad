@@ -22,13 +22,13 @@ zammad:
 
 # jira 2 zammad mappings
 mapping:
-  mapping2lower: true
+  mapping2lower: true # jira values will be compared in lowecase to the values configured in mapping.FILEDNAME.values:
   tags:
     default: # default tags we apply to all migrated issues - will be used as a filter too
       - jira2zammad
   user:  # reporter, assignee, ...
     # list of roles to assign to agents
-    agent_role_keys: i{3] # example: [3, 4]
+    agent_role_keys: [3] # example: [3, 4]
     key:  # mapping of users jira.emailAddress  <-> zammad.email
       jira: emailAddress
       zammad: email
