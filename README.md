@@ -3,15 +3,20 @@ python script for Jira -> Zammad migration using the API
 
 ## about
 
-**This is not a ready-to-use software!**
+> [!NOTE]
+> **This is not a ready-to-use software!**
 
-**This was not written with code beauty in mind.**
+> [!IMPORTANT]
+> **This was not written with code beauty in mind.**
 
-**This is no elegant and no efficient code.**
+> [!IMPORTANT]
+> **This is no elegant and no efficient code.**
 
-**This was just written straight forward: one shot, kick'n'rush, disposable software.**
+> [!WARNING]
+> **This was just written straight forward: one shot, kick'n'rush, disposable software.**
 
-**We do not offer any support, only an opportunity that you can take yourself.**
+> [!CAUTION]
+> **We do not offer any support, only an opportunity that you can take yourself.**
 
 :exclamation: **No warranty!** :exclamation:
 
@@ -41,7 +46,8 @@ We looked for existing python bindings for the jira and zammad API, extended the
 (yes, we do not just consume open source here @ [RLS IT](https://github.com/Rosa-Luxemburgstiftung-Berlin), we try to live it),
 and started a small project.
 
-First of all: we tested on a cloned instance of our existing zammad setup!
+> [!IMPORTANT]
+> First of all: we tested on a cloned instance of our existing zammad setup!
 
 Step by step we migrated single issues, fixing more and more fields and settings.
 If the result was not satisfactory, we removed the ticket and started all over again ...
