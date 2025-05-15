@@ -93,17 +93,7 @@ cd jira2zammad
 pip install -r jira2zammad-requirements.txt
 ```
 
-### deb
-
-```
-apt install python3-requests python3-packaging python3-typing-extensions
-```
-
-#### hiyapyco
-
-please follow the instructions from https://github.com/zerwes/hiyapyco#debian-packages
-
-### zammad-py and jira as git submodules (alternative to install them via pip jira2zammad-requirements.txt)
+#### zammad-py and jira as git submodules (alternative to install them via pip jira2zammad-requirements.txt)
 
 in the jira2zammad directory, run
 
@@ -118,6 +108,16 @@ git submodule add --branch CommentProperty https://github.com/Rosa-Luxemburgstif
 ```
 
 **Note**: other versions of *zammad-py* or *jira* that have been installed via pip or the local package management must be removed in order to use the local submodules.
+
+### deb
+
+```
+apt install python3-requests python3-packaging python3-typing-extensions
+```
+
+#### hiyapyco
+
+please follow the instructions from https://github.com/zerwes/hiyapyco#debian-packages
 
 ## run
 
@@ -152,7 +152,7 @@ options:
 ### cfg
 
 #### secrets
-configure seecrets in `jira2zammad-secrets.yml` or in `jira2zammad.yml`
+configure secrets in `jira2zammad-secrets.yml` or in `jira2zammad.yml`
 
 ```yaml
 ---
