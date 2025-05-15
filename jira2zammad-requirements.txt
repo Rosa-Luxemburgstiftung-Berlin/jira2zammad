@@ -1,7 +1,7 @@
 # pip packages for jira 2 zammad migration
 # pip install -r jira2zammad-requirements.txt
 jira
-zammad_py
+zammad_py>=3.2.0
 hiyapyco
 pylint
 packaging
