@@ -103,7 +103,7 @@ apt install python3-requests python3-packaging python3-typing-extensions
 
 please follow the instructions from https://github.com/zerwes/hiyapyco#debian-packages
 
-## zammad-py and jira as git submodules (alternative to install them via pip jira2zammad-requirements.txt)
+### zammad-py and jira as git submodules (alternative to install them via pip jira2zammad-requirements.txt)
 
 in the jira2zammad directory, run
 
